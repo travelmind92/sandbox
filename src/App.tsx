@@ -1,24 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import TeamList from './components/TeamList';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <header className="app-header">Sandbox</header>
+      <div className="app-body">
+        <aside className="app-sidebar">
+          <nav>
+            <button className="sidebar-item sidebar-item-active" type="button">
+              Teams
+            </button>
+          </nav>
+        </aside>
+        <main className="app-main">
+          <TeamList />
+        </main>
+      </div>
     </div>
   );
 }
