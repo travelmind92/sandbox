@@ -9,11 +9,27 @@
   height: 64px;
   display: flex;
   align-items: center;
+  justify-content: space-between;
   padding: 0 1.5rem;
   background: #ffffff;
   border-bottom: 1px solid #e2e8f0;
   font-size: 1.1rem;
   font-weight: 700;
+}
+
+.header-login-button {
+  border: 1px solid #1d4ed8;
+  border-radius: 8px;
+  padding: 0.45rem 0.85rem;
+  color: #1d4ed8;
+  background: #ffffff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.header-login-button:hover {
+  background: #eff6ff;
 }
 
 .app-body {
