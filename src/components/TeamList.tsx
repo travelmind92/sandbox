@@ -1,47 +1,53 @@
-import React from 'react';
+import React, { useCallback } from "react";
+import type { ColumnDef } from "./ResourceList";
+import ResourceList from "./ResourceList";
+import { leaguesService } from "../features/leagues/leaguesService";
+import { teamsService } from "../features/teams/teamsService";
+import type { Team } from "../features/teams/types";
 
-const teams = [
-  { name: 'Real Madrid', country: 'Spain', league: 'La Liga' },
-  { name: 'FC Barcelona', country: 'Spain', league: 'La Liga' },
-  { name: 'Manchester City', country: 'England', league: 'Premier League' },
-  { name: 'Liverpool', country: 'England', league: 'Premier League' },
-  { name: 'Bayern Munich', country: 'Germany', league: 'Bundesliga' },
-  { name: 'Paris Saint-Germain', country: 'France', league: 'Ligue 1' },
-  { name: 'Inter Milan', country: 'Italy', league: 'Serie A' },
-  { name: 'AC Milan', country: 'Italy', league: 'Serie A' },
-  { name: 'Ajax', country: 'Netherlands', league: 'Eredivisie' },
-  { name: 'Benfica', country: 'Portugal', league: 'Primeira Liga' },
-];
+type TeamRow = Team & { leagueName: string };
 
 function TeamList() {
-  return (
-    <section className="team-list">
-      <div className="team-list-header">
-        <h1>Teams</h1>
-        <p>Manage your European soccer clubs.</p>
-      </div>
+  const loadTeams = useCallback(async () => {
+    const [teams, leagues] = await Promise.all([
+      teamsService.getTeams(),
+      leaguesService.getLeagues(),
+    ]);
+    const nameByLeagueId = new Map(leagues.map((l) => [l.id, l.name]));
+    return teams.map<TeamRow>((team) => ({
+      ...team,
+      leagueName: nameByLeagueId.get(team.leagueId) ?? team.leagueId,
+    }));
+  }, []);
 
-      <div className="team-table-wrapper">
-        <table className="team-table">
-          <thead>
-            <tr>
-              <th>Team</th>
-              <th>Country</th>
-              <th>League</th>
-            </tr>
-          </thead>
-          <tbody>
-            {teams.map((team) => (
-              <tr key={team.name}>
-                <td>{team.name}</td>
-                <td>{team.country}</td>
-                <td>{team.league}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </section>
+  const columns: ColumnDef<TeamRow>[] = [
+    {
+      key: "name",
+      header: "Team",
+      render: (team) => team.name,
+    },
+    {
+      key: "country",
+      header: "Country",
+      render: (team) => team.country,
+    },
+    {
+      key: "league",
+      header: "League",
+      render: (team) => team.leagueName,
+    },
+  ];
+
+  return (
+    <ResourceList
+      title="Teams"
+      subtitle="Manage your European soccer clubs."
+      loadingLabel="Loading teams..."
+      emptyLabel="No teams found."
+      errorLabel="Failed to load teams"
+      loadData={loadTeams}
+      columns={columns}
+    />
   );
 }
 

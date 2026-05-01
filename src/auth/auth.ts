@@ -1,0 +1,16 @@
+export const getIdToken = () => {
+    return localStorage.getItem("id_token");
+};
+
+export const isAuthenticated = () => {
+    return !!getIdToken();
+};
+
+export const isTokenExpired = (token: string) => {
+    try {
+        const payload = JSON.parse(atob(token.split(".")[1]));
+        return payload.exp * 1000 < Date.now();
+    } catch {
+        return true;
+    }
+};
