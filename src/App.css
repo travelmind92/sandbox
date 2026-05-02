@@ -79,6 +79,126 @@
   margin-bottom: 1rem;
 }
 
+.resource-list-header-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.resource-list-header-row > div:first-child {
+  flex: 1;
+  min-width: 0;
+}
+
+.resource-list-primary-button {
+  border: 0;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  background: #1d4ed8;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.resource-list-primary-button:hover {
+  background: #1e40af;
+}
+
+.resource-form {
+  width: 100%;
+  max-width: 1000px;
+  padding: 1.25rem;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+}
+
+.resource-form-body {
+  margin-top: 0.5rem;
+}
+
+.resource-form-field {
+  margin-bottom: 1rem;
+}
+
+.resource-form-field label {
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.resource-form-field input,
+.resource-form-field select {
+  width: 100%;
+  max-width: 400px;
+  padding: 0.5rem 0.65rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  background: #ffffff;
+  color: #0f172a;
+}
+
+.resource-form-field input:disabled,
+.resource-form-field select:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.resource-form-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
+.resource-form-primary-button {
+  border: 0;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  background: #1d4ed8;
+  color: #ffffff;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.resource-form-primary-button:hover:not(:disabled) {
+  background: #1e40af;
+}
+
+.resource-form-primary-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.resource-form-secondary-button {
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  background: #ffffff;
+  color: #334155;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.resource-form-secondary-button:hover:not(:disabled) {
+  background: #f8fafc;
+}
+
+.resource-form-secondary-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
 .resource-list-header h1 {
   margin: 0;
   font-size: 1.45rem;
@@ -125,4 +245,20 @@
 
 .resource-table tbody tr:hover {
   background: #f8fafc;
+}
+
+.resource-table-link-button {
+  border: 0;
+  padding: 0;
+  background: none;
+  color: #1d4ed8;
+  font-size: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.resource-table-link-button:hover {
+  color: #1e40af;
 }

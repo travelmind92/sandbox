@@ -1,4 +1,5 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
+import CreateTeamForm from "./CreateTeamForm";
 import type { ColumnDef } from "./ResourceList";
 import ResourceList from "./ResourceList";
 import { leaguesService } from "../features/leagues/leaguesService";
@@ -8,6 +9,9 @@ import type { Team } from "../features/teams/types";
 type TeamRow = Team & { leagueName: string };
 
 function TeamList() {
+  const [screen, setScreen] = useState<"list" | "form">("list");
+  const [formInitialTeam, setFormInitialTeam] = useState<Team | undefined>(undefined);
+
   const loadTeams = useCallback(async () => {
     const [teams, leagues] = await Promise.all([
       teamsService.getTeams(),
@@ -36,7 +40,33 @@ function TeamList() {
       header: "League",
       render: (team) => team.leagueName,
     },
+    {
+      key: "actions",
+      header: "",
+      render: (team) => (
+        <button
+          className="resource-table-link-button"
+          type="button"
+          onClick={() => {
+            setFormInitialTeam(team);
+            setScreen("form");
+          }}
+        >
+          Edit
+        </button>
+      ),
+    },
   ];
+
+  if (screen === "form") {
+    return (
+      <CreateTeamForm
+        initialTeam={formInitialTeam}
+        onCancel={() => setScreen("list")}
+        onSaved={() => setScreen("list")}
+      />
+    );
+  }
 
   return (
     <ResourceList
@@ -47,6 +77,18 @@ function TeamList() {
       errorLabel="Failed to load teams"
       loadData={loadTeams}
       columns={columns}
+      headerActions={
+        <button
+          className="resource-list-primary-button"
+          type="button"
+          onClick={() => {
+            setFormInitialTeam(undefined);
+            setScreen("form");
+          }}
+        >
+          New team
+        </button>
+      }
     />
   );
 }

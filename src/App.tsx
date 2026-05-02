@@ -7,14 +7,6 @@ import { isAuthenticated } from "./auth/auth";
 import { exchangeCode } from "./services/api/api";
 import { buildCognitoLoginUrl, buildCognitoLogoutUrl } from "./services/api/cognito";
 
-// TODO NEXT
-// editar server para que guarde teams y leagues posta
-// agregar form de crear teams
-// agregar form de crear leagues
-// probar sin usuario (deberia fallar)
-// probar con user (deberia andar solo teams)
-// probar con admin (deberia andar teams y leagues)
-
 function App() {
   const [activeSection, setActiveSection] = useState("teams");
   const cognitoLoginUrl = buildCognitoLoginUrl();

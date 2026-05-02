@@ -14,6 +14,7 @@ type ResourceListProps<T extends { id: string }> = {
   errorLabel: string;
   loadData: () => Promise<T[]>;
   columns: ColumnDef<T>[];
+  headerActions?: React.ReactNode;
 };
 
 function ResourceList<T extends { id: string }>({
@@ -24,6 +25,7 @@ function ResourceList<T extends { id: string }>({
   errorLabel,
   loadData,
   columns,
+  headerActions,
 }: ResourceListProps<T>) {
   const [rows, setRows] = useState<T[] | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -54,8 +56,13 @@ function ResourceList<T extends { id: string }>({
   return (
     <section className="resource-list">
       <div className="resource-list-header">
-        <h1>{title}</h1>
-        <p>{subtitle}</p>
+        <div className="resource-list-header-row">
+          <div>
+            <h1>{title}</h1>
+            <p>{subtitle}</p>
+          </div>
+          {headerActions}
+        </div>
       </div>
 
       {error && <p className="resource-list-message resource-list-error">{error}</p>}
